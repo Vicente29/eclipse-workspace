@@ -1,0 +1,81 @@
+package Ejercicios_Ficheros;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class Ejercicio0_ClaseFile {
+
+		//Declaracion del teclado.
+		public static	Scanner leer=new Scanner(System.in);
+
+		//Declaramos el formato de fecha con el que trabajaremos.
+		public static SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+		
+	public static void main(String[] args) {
+		// Ejercicio de la Clase File PAQUETE java.io
+
+		int opcion=0;
+		//Hacemos un do while como bucle de este ejecicio.
+		do {
+			System.out.println("0.-Salir.");
+			System.out.println("1.-Mostrar la ruta absoluta de la carpeta actual.");
+			System.out.println("2.-Pedimos y Mostramos la informacion de la ruta.");
+			opcion=leer.nextInt();leer.nextLine();
+			switch(opcion) {
+			case 1:
+					mostrarRutaActual();
+				break;
+			case 2: 
+					InformacionRuta();
+				break;
+			}
+			
+		}while(opcion!=0);
+	}
+	
+	
+	//METODOS.
+/*---------------------------------------------------------------------------------*/	
+	private static void mostrarRutaActual() {
+		//Declaramos un objeto file que apunte a la carpeta actual.
+		
+		File carpeta=new File(".");
+		//Mostramos la ruta absoluta de mi carpeta actual.
+		System.out.println("Mi ruta: "+carpeta.getAbsolutePath());
+		System.out.println("");
+	}
+
+	
+	private static void InformacionRuta() {
+
+		System.out.print("Introduce una ruta: ");
+		String ruta=leer.nextLine();
+		
+		//Creamos objeto file a la ruta introducida.
+		File fRuta=new File(ruta);
+		
+		//Comprobamos si existe
+		if(fRuta.exists()) {
+			//Mostramos si es fichero o carpeta.
+			if( fRuta.isDirectory()) {
+				System.out.println("La ruta es una carpeta.");
+			}else {
+				System.out.println("Es un fichero.");
+			}
+			//Mostramos la fecha de modificacion.
+			Date fecha=new Date(fRuta.lastModified());
+			System.out.println("Fecha ultima modificacion: "+df.format(fecha));
+			
+			//Mostramos el tamaño
+			System.out.println("Tamaño: "+fRuta.length());
+			System.out.println("");
+			
+		}
+		else {
+			System.err.println("ERROR: La ruta introducida no existe.");
+		}
+	}
+
+}
