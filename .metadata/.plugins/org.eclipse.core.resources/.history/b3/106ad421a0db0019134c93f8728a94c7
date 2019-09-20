@@ -44,7 +44,6 @@ public class Ejercicio1_FicherosDeTexto {
 					modificarMaterial(false);
 				break;
 			case 4:
-					//Se le llama al mismo metodo pero con un booleano a true.
 					modificarMaterial(true);
 				break;
 			
@@ -110,17 +109,14 @@ public class Ejercicio1_FicherosDeTexto {
 		
 		//Declaramos el fichero de escritura.
 		BufferedWriter fichero=null;
-		BufferedReader fichero2=null;
 		//Abrimos el fichero.
 		try {
 			fichero=new BufferedWriter(new FileWriter(nombreF, true));
-			fichero2=new BufferedReader(new FileReader(nombreF));
 			
 			//Pedimos los datos.
 			String linea="";
 			System.out.print("Introduce el codigo del producto: ");
 			linea+=leer.nextLine()+";";
-			if(!existeMateria(linea)) {
 			System.out.println();
 			System.out.print("Introduce el nombre del producto: ");
 			linea+=leer.nextLine()+";";
@@ -137,7 +133,6 @@ public class Ejercicio1_FicherosDeTexto {
 			
 			//Escribimos las lineas.
 			fichero.write(linea);
-			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -160,17 +155,6 @@ public class Ejercicio1_FicherosDeTexto {
 	
 	
 	
-	private static boolean existeMateria(String linea) {
-		// Comprobaremos si existe el codigo introducido o no.
-		
-		
-		
-		return false;
-	}
-
-
-
-
 	private static void modificarMaterial(boolean borrar) {
 		
 		//Pedimos el codigo del material a modificar.

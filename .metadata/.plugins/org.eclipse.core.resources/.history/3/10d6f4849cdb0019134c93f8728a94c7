@@ -40,12 +40,9 @@ public class Ejercicio1_FicherosDeTexto {
 					insertarMaterial();
 				break;
 			case 3:
-					//Parametro a false porque modifica y no borra
-					modificarMaterial(false);
+					modificarMaterial();
 				break;
 			case 4:
-					//Se le llama al mismo metodo pero con un booleano a true.
-					modificarMaterial(true);
 				break;
 			
 			}
@@ -110,34 +107,30 @@ public class Ejercicio1_FicherosDeTexto {
 		
 		//Declaramos el fichero de escritura.
 		BufferedWriter fichero=null;
-		BufferedReader fichero2=null;
 		//Abrimos el fichero.
 		try {
 			fichero=new BufferedWriter(new FileWriter(nombreF, true));
-			fichero2=new BufferedReader(new FileReader(nombreF));
 			
 			//Pedimos los datos.
 			String linea="";
 			System.out.print("Introduce el codigo del producto: ");
-			linea+=leer.nextLine()+";";
-			if(!existeMateria(linea)) {
+			linea+=leer.nextLine();
 			System.out.println();
 			System.out.print("Introduce el nombre del producto: ");
-			linea+=leer.nextLine()+";";
+			linea+=leer.nextLine();
 			System.out.println();
 			System.out.print("Introduce el precio del producto: ");
-			linea+=leer.nextLine()+";";
+			linea+=leer.nextLine();
 			System.out.println();
 			System.out.println("Introduce el stock del producto: ");
-			linea+=leer.nextLine()+";";
+			linea+=leer.nextLine();
 			System.out.println();
 			
 			//Por defecto el material esta de alta.
-			linea +="Si\n";
+			linea +=";Si\n";
 			
 			//Escribimos las lineas.
 			fichero.write(linea);
-			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -160,18 +153,7 @@ public class Ejercicio1_FicherosDeTexto {
 	
 	
 	
-	private static boolean existeMateria(String linea) {
-		// Comprobaremos si existe el codigo introducido o no.
-		
-		
-		
-		return false;
-	}
-
-
-
-
-	private static void modificarMaterial(boolean borrar) {
+	private static void modificarMaterial() {
 		
 		//Pedimos el codigo del material a modificar.
 		System.out.println("Introduce el codigo que desees modificar: ");
@@ -198,7 +180,7 @@ public class Ejercicio1_FicherosDeTexto {
 				
 				//Comprobamos si la linea es la linea a modificar.
 				if(codigo.equalsIgnoreCase(campos[0])) {
-					if(!borrar) {
+					
 					//Pedimos el nuevo nombre.
 					System.out.println("Introduce el nuevo nombre: ");
 					campos[1]=leer.nextLine();
@@ -209,14 +191,19 @@ public class Ejercicio1_FicherosDeTexto {
 					
 					//Escribimos la linea modificada en el fichero temporal.
 					ficheroTmp.write(campos[0]+";"+campos[1]+";"+campos[2]+";"+
-							campos[3]+";"+campos[4]+"\n");	
-					}
+							campos[3]+";"+campos[4]+"\n");
+					
+					
+					
 				}else {
 					
 					//Escribimos la linea tal cual se ha leido.
 					ficheroTmp.write(linea+"\n");
 				}
+				
 			}
+			
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println("ERROR: No se ha encontrado el fichero.");

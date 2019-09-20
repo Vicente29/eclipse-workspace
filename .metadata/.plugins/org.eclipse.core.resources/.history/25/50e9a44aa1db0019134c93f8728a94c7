@@ -36,7 +36,7 @@ public class Ejercicio1_FicherosDeTexto {
 			case 1:
 					mostrarFicheros();
 				break;
-			case 2:
+			case 2:			
 					insertarMaterial();
 				break;
 			case 3:
@@ -115,12 +115,20 @@ public class Ejercicio1_FicherosDeTexto {
 		try {
 			fichero=new BufferedWriter(new FileWriter(nombreF, true));
 			fichero2=new BufferedReader(new FileReader(nombreF));
+			String lineas=fichero2.readLine();
+			String campos[]=lineas.split(";");
 			
 			//Pedimos los datos.
 			String linea="";
 			System.out.print("Introduce el codigo del producto: ");
 			linea+=leer.nextLine()+";";
-			if(!existeMateria(linea)) {
+			
+			while(campos[0].equals(linea)) {
+				
+				System.out.println("Introduce un codigo del producto: ");
+				linea+=leer.nextLine();
+			}
+			
 			System.out.println();
 			System.out.print("Introduce el nombre del producto: ");
 			linea+=leer.nextLine()+";";
@@ -137,7 +145,6 @@ public class Ejercicio1_FicherosDeTexto {
 			
 			//Escribimos las lineas.
 			fichero.write(linea);
-			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -160,17 +167,6 @@ public class Ejercicio1_FicherosDeTexto {
 	
 	
 	
-	private static boolean existeMateria(String linea) {
-		// Comprobaremos si existe el codigo introducido o no.
-		
-		
-		
-		return false;
-	}
-
-
-
-
 	private static void modificarMaterial(boolean borrar) {
 		
 		//Pedimos el codigo del material a modificar.
