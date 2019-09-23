@@ -1,0 +1,10 @@
+package Aceso_Secuencial_Texto;
+
+public class Ejercicio2_FicherosBinarios {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
