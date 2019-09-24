@@ -30,9 +30,8 @@ int opcion=0;
 			System.out.println("0.-Salir");
 			System.out.println("1.-Crear fichero binario a partir del fichero de texto.");
 			System.out.println("2.-Leer/Mostrar.");
-			System.out.println("3.-Insertar material.");
-			System.out.println("4.-Modificar material");
-			System.out.println("5.-Borrar el fichero.");
+			System.out.println("3.-Modificar material.");
+			System.out.println("4.-Borrar material");
 			System.out.println();
 			System.out.print("Introduce una de las opciones anteriores: ");
 			opcion=leer.nextInt();leer.nextLine();
@@ -249,7 +248,7 @@ int opcion=0;
 		//Abrimos los ficheros.
 		try {
 			
-			fichero=new DataInputStream(new FileInputStream(nombreFB));
+			fichero=new DataInputStream(new FileInputStream(nombreF));
 						/*Append = false para * sobreescribir el fichero si existe.*/
 			ficheroTmp=new DataOutputStream(new FileOutputStream("almacen.tmp",false));
 			
@@ -280,15 +279,15 @@ int opcion=0;
 				
 				//Leemos el alta.
 				boolean alta=fichero.readBoolean();
-				if(codigo.equalsIgnoreCase(codigo2)) {
+				if(codigo.equalsIgnoreCase(codigo)) {
 					
 					if(!borrar) {
 						//Modificamos solamente el nombre.
 						System.out.println("Introduce un nuevo nombre: ");
 						nombre=leer.nextLine();
 						
-						ficheroTmp.writeChars(codigo2+"\n");
-						ficheroTmp.writeChars(nombre+"\n");
+						ficheroTmp.writeChars(codigo2);
+						ficheroTmp.writeChars(nombre);
 						ficheroTmp.writeFloat(precio);
 						ficheroTmp.writeFloat(stock);
 						ficheroTmp.writeBoolean(alta);
@@ -298,8 +297,8 @@ int opcion=0;
 					
 				}else {
 					//Escribimos los datos en el fichero temporal tal y como se han leido.
-					ficheroTmp.writeChars(codigo2+"\n");
-					ficheroTmp.writeChars(nombre+"\n");
+					ficheroTmp.writeChars(codigo2);
+					ficheroTmp.writeChars(nombre);
 					ficheroTmp.writeFloat(precio);
 					ficheroTmp.writeFloat(stock);
 					ficheroTmp.writeBoolean(alta);
@@ -342,7 +341,7 @@ int opcion=0;
 			System.err.println("ERROR: Se hizo mal la operacion de borrado.");
 		}
 		
-		File fTmp=new File("almacen.tmp");
+		File fTmp=new File("alacen.tmp");
 		if(!fTmp.renameTo(fO)) {
 			System.err.println("ERROR: No se ha renombrado el fichero.");
 		}

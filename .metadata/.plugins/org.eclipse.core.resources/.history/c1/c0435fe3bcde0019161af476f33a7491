@@ -249,7 +249,7 @@ int opcion=0;
 		//Abrimos los ficheros.
 		try {
 			
-			fichero=new DataInputStream(new FileInputStream(nombreFB));
+			fichero=new DataInputStream(new FileInputStream(nombreF));
 						/*Append = false para * sobreescribir el fichero si existe.*/
 			ficheroTmp=new DataOutputStream(new FileOutputStream("almacen.tmp",false));
 			
@@ -280,7 +280,7 @@ int opcion=0;
 				
 				//Leemos el alta.
 				boolean alta=fichero.readBoolean();
-				if(codigo.equalsIgnoreCase(codigo2)) {
+				if(codigo.equalsIgnoreCase(codigo)) {
 					
 					if(!borrar) {
 						//Modificamos solamente el nombre.
@@ -342,7 +342,7 @@ int opcion=0;
 			System.err.println("ERROR: Se hizo mal la operacion de borrado.");
 		}
 		
-		File fTmp=new File("almacen.tmp");
+		File fTmp=new File("alacen.tmp");
 		if(!fTmp.renameTo(fO)) {
 			System.err.println("ERROR: No se ha renombrado el fichero.");
 		}

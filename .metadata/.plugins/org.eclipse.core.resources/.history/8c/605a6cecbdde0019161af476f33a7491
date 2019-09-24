@@ -249,7 +249,7 @@ int opcion=0;
 		//Abrimos los ficheros.
 		try {
 			
-			fichero=new DataInputStream(new FileInputStream(nombreFB));
+			fichero=new DataInputStream(new FileInputStream(nombreF));
 						/*Append = false para * sobreescribir el fichero si existe.*/
 			ficheroTmp=new DataOutputStream(new FileOutputStream("almacen.tmp",false));
 			
