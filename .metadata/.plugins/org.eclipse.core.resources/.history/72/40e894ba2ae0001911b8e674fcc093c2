@@ -1,0 +1,20 @@
+package Ficheros_de_Objetos;
+
+import java.io.Serializable;
+
+public class Pieza implements Serializable{
+	
+	private String codigo,nombre;
+	private Float precio;
+	private int stock;
+	private boolean alta;
+	
+	public Pieza() {
+		
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,14 @@
+package Ficheros_de_Objetos;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class MyObjectOutputStreamVicente extends ObjectInputStream{
+
+	protected MyObjectOutputStreamVicente() throws IOException, SecurityException {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+}

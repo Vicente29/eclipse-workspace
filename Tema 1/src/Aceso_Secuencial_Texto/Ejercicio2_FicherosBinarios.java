@@ -23,7 +23,7 @@ public class Ejercicio2_FicherosBinarios {
 		// TODO Auto-generated method stub
 
 		
-int opcion=0;
+		int opcion=0;
 		
 		do {
 			

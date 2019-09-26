@@ -1,0 +1,22 @@
+package Ficheros_de_Objetos;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.StreamCorruptedException;
+
+public class MyObjectOutputStreamVicente extends ObjectInputStream{
+
+	protected MyObjectOutputStreamVicente() throws IOException, SecurityException {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
+	@Override
+	protected void readStreamHeader() throws IOException, StreamCorruptedException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+}
