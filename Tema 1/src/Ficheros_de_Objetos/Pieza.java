@@ -55,7 +55,7 @@ public class Pieza implements Serializable{
 	
 	//METODOS.
 /*------------------------------------------------------------------------------*/	
-	protected void mostra() {
+	public void mostra() {
 		System.out.println("Codigo: "+codigo+
 				"\tNombre: "+nombre+
 				"\tPrecio: "+precio+
