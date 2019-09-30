@@ -20,7 +20,7 @@ public class EplicacionFicheroAccesoAleatorio {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-int opcion=0;
+		int opcion=0;
 		
 		do {
 			

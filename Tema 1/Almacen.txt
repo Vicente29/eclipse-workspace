@@ -4,4 +4,4 @@ Y690;Latas Aceite;15.00;80;Si
 R333;aleron;120.00;3;Si
 Y666;Guantes;34.98;5;Si
 y555;yyyy;45.98;56;Si
-asdf;asdf5;234.98;23445;Si
+asdf;asdf5;234.98;23445;Si 

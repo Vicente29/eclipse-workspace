@@ -1,0 +1,6 @@
+P001;Pantalon vaquero;XS L M XL XXL;Hombre;45.98;10;Si
+P002;Pantalon pitillo;XL;Unisex;20.00;5;No
+P003;Pantalon ancho;XS L XXL;Mujer;23.75;14;Si
+C001;Camiseta corta;XS L M;Mujer;10.99;23;No
+C002;Camiseta chandal;XS M L XXL;Unisex;23.98;6;Si
+S001;Sudadera; XS L M Xl XXL;Unisex;34.99;20;No
