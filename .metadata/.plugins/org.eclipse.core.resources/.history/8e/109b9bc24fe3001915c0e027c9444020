@@ -28,8 +28,8 @@ int opcion=0;
 			System.out.println("1.-Crear fichero aleatorio a partir de fichero objetos.");
 			System.out.println("2.-Leer/Mostrar.");
 			System.out.println("3.-Insertar material sin duplicados.");
-			System.out.println("4.-Modificar precio material si no esta dado de baja.");
-			System.out.println("5.-Baja material.");
+			System.out.println("4.-Modificar material");
+			System.out.println("5.-Borrar el fichero.");
 			System.out.println();
 			System.out.print("Introduce una de las opciones anteriores: ");
 			opcion=leer.nextInt();leer.nextLine();
@@ -46,10 +46,10 @@ int opcion=0;
 					insertarFicheroAleatorio();
 				break;
 			case 4:
-					modificarFicheroAleatorio();
+					
 				break;
 			case 5:
-					bajaMaterialFicheroAleatorio();
+					
 				break;
 			
 			}
@@ -298,140 +298,6 @@ int opcion=0;
 		}
 		
 		return resultado;
-	}
-	
-	
-	
-	private static void modificarFicheroAleatorio() {
-		
-		//Pedimos el codigo a modificar.
-		System.out.println("Introduce el nombre del codigo: ");
-		StringBuilder codigo=new StringBuilder(leer.nextLine());
-		codigo.setLength(lCodigo);
-		//Declaramos fichero.
-		RandomAccessFile fichero=null;
-		
-		//Lo abrimos.
-		try {
-			fichero=new RandomAccessFile(nombreFA,"rw");
-			
-			//Leemos los registros hasta encontrar el que queremos.
-			while(true) {
-				//Leemos el codigo.
-				String codFich="";
-				//Hacemos un bucle con la longitud del String.
-				for(int i=0;i<lCodigo;i++) {
-					//Concatenamos en cada vuelta de bucle.
-					codFich+=fichero.readChar();
-				}
-				//Comprobamos si el codigo leido es el buscado.
-				if(codigo.toString().equalsIgnoreCase(codFich)) {
-					//Comprobamos si esta de alta.
-					//Desplazamos el puntero para leer el campo alta. 48 Bytes.
-					fichero.seek(fichero.getFilePointer()+48);
-					//Comprobamos si esta de alta.
-					if(fichero.readBoolean()) {
-						//Pedimos el nuevo precio.
-						System.out.println("Introduce el nuevo precio: ");
-						float nuevoPrecio=leer.nextFloat();leer.nextLine();
-						//Desplazamso el puntero del fichero 9 Bytes hacia atras.
-						fichero.seek(fichero.getFilePointer()-9);
-						//Escribimos en el fichero el nuevo precio.
-						fichero.writeFloat(nuevoPrecio);
-						//Finalizamos el bucle.
-						break;
-					}
-					
-				}else {
-					//Si el codigo no es el buscado nos saltamos los bytes para posicionarnos
-					//en el siguiente codigo. En este caso 49 Bytes.
-					fichero.seek(fichero.getFilePointer()+49);
-					
-				}
-			}
-			
-		}catch(EOFException e) {
-			
-		}catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(fichero!=null) {
-				try {
-					fichero.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		
-	}
-	
-	private static void bajaMaterialFicheroAleatorio() {
-		
-		//Pedimos el codigo a modificar.
-				System.out.println("Introduce el nombre del codigo: ");
-				StringBuilder codigo=new StringBuilder(leer.nextLine());
-				codigo.setLength(lCodigo);
-				//Declaramos fichero.
-				RandomAccessFile fichero=null;
-				
-				//Lo abrimos.
-				try {
-					fichero=new RandomAccessFile(nombreFA,"rw");
-					
-					//Leemos los registros hasta encontrar el que queremos.
-					while(true) {
-						//Leemos el codigo.
-						String codFich="";
-						//Hacemos un bucle con la longitud del String.
-						for(int i=0;i<lCodigo;i++) {
-							//Concatenamos en cada vuelta de bucle.
-							codFich+=fichero.readChar();
-						}
-						//Comprobamos si el codigo leido es el buscado.
-						if(codigo.toString().equalsIgnoreCase(codFich)) {
-							
-							//Nos desplazamos hasta el campo alta y lo modificamos. 48 Bytes
-							fichero.seek(fichero.getFilePointer()+48);
-							//Escribimos Alta = false para dar de baja.
-							fichero.writeBoolean(false);
-							//Finalizamos el bucle.
-							break;
-								
-						}else {
-							//Si el codigo no es el buscado nos saltamos los bytes para posicionarnos
-							//en el siguiente codigo. En este caso 49 Bytes.
-							fichero.seek(fichero.getFilePointer()+49);
-							
-						}
-					}
-					
-				}catch(EOFException e) {
-					
-				}catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally {
-					if(fichero!=null) {
-						try {
-							fichero.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
-		
-		
-		
 	}
 	
 	
