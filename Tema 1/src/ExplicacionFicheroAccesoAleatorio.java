@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import Ficheros_de_Objetos.Pieza;
 
-public class EplicacionFicheroAccesoAleatorio {
+public class ExplicacionFicheroAccesoAleatorio {
 
 	public static Scanner leer=new Scanner(System.in);
 	 static String nombreFO="Almacen.obj";
