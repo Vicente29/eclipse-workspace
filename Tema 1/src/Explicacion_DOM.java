@@ -21,13 +21,17 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 public class Explicacion_DOM {
 
 	static Scanner leer=new Scanner(System.in);
 	static String nombreFT="Almacen.txt";
-	 static String nombreXML="Almacen.xml";
+	static String nombreXML="Almacen.xml";
 	public static void main(String[] args) {
 		
 		
@@ -51,16 +55,16 @@ public class Explicacion_DOM {
 					crearFicheroXML();
 				break;
 			case 2:
-					
+					mostrarFicheroXML();
 				break;
 			case 3:
-					
+					insertarFicheroXML();
 				break;
 			case 4:
-					
+					modificarFicheroXML();
 				break;
 			case 5:
-					
+					borrarFicheroXML();
 				break;
 			
 			}
@@ -69,6 +73,47 @@ public class Explicacion_DOM {
 		}while(opcion!=0);
 
 	}
+
+	
+
+	private static void borrarFicheroXML() {
+		// TODO Auto-generated method stub
+		DocumentBuilder db;
+		try {
+			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document documento=db.parse(nombreXML);
+			
+			System.out.println("Introduce el codigo: ");
+			String codigo=leer.nextLine();
+			
+			//Obtenemos los elemntos del nodo pieza.
+			NodeList nodosPieza=documento.getElementsByTagName("pieza");
+			for(int i=0;i<nodosPieza.getLength();i++) {
+				Element pieza=(Element) nodosPieza.item(i);
+				
+				//Comprobamos el atributo codigo.
+				if(pieza.getAttribute("codigo").equalsIgnoreCase(codigo)) {
+					//Borramos el nodo pieza.
+					pieza.getParentNode().removeChild(pieza);
+					pasarDOMaXML(documento, nombreXML);
+					break;
+				}
+			}
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
 
 	private static void crearFicheroXML() {
 		
@@ -195,6 +240,204 @@ public class Explicacion_DOM {
 		}
 		
 	}
+	
+	private static void mostrarFicheroXML() {
+		
+		try {
+			DocumentBuilder db=DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			
+			Document documento=db.parse(nombreXML);
+			
+			//Obtenemos la raiz.
+			Element raiz=documento.getDocumentElement();
+			//Mostramos la raiz con un metodo recursivo que pinta un nodo y sus hijos.
+			mostrarElemento(raiz,0);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	private static void mostrarElemento(Element nodo,int tabulaciones) {
+		
+		for(int i=0;i<tabulaciones;i++) {
+			System.out.print("\t");
+		}
+		
+		//Pintamos el nombre del nodo.
+		System.out.print(nodo.getNodeName()+"(");
+		
+		//Obtenemos los atributos.
+		NamedNodeMap atributo=nodo.getAttributes();
+		//Mostramos los atributos.
+		for(int i=0;i<atributo.getLength();i++) {
+			System.out.print(atributo.item(i).getNodeName()+"="+
+						atributo.item(i).getNodeValue());
+		}
+		System.out.println(")");
+		
+		//Obtenemos los hijos del nodo para llamar de forma recursiva a cada  hijo.
+		NodeList nodos=nodo.getChildNodes();
+		for(int i=0;i<nodos.getLength();i++) {
+			//Comprobamos si el hijo es de tipo texto o de tipo elemento.
+			if(nodos.item(i).getNodeType()==Node.TEXT_NODE) {
+				for(int j=0;j<tabulaciones+1;j++) {
+					System.out.print("\t");
+				}
+				System.out.println(nodos.item(i).getNodeValue());
+			}else {
+				mostrarElemento((Element)nodos.item(i),tabulaciones+1);
+			}
+		}
+		
+	}
+	
+	private static void insertarFicheroXML() {
+		
+		
+		DocumentBuilder db;
+		try {
+			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document documento=db.parse(nombreXML);
+			
+			//Pedimos el codigo.
+			System.out.println("Introduce el codigo: ");
+			String codigo=leer.nextLine();
+			if(!existe(documento,codigo)) {
+				
+				//Creamos el elemento y lo rellenamos con los datos.
+				Element pieza=documento.createElement("pieza");
+				//Creamos atributos.
+				pieza.setAttribute("codigo", codigo);
+				pieza.setAttribute("alta", "Si");
+				//Añadimos pieza a piezas.
+				documento.getDocumentElement().getElementsByTagName("piezas").item(0).appendChild(pieza);
+				
+				//nombre de la pieza.
+				Element nombre=documento.createElement("nombre");
+				pieza.appendChild(nombre);
+				System.out.println("Introduce el nombre de la pieza:");
+				Text nombrePieza =documento.createTextNode(leer.nextLine());
+				nombre.appendChild(nombrePieza);
+				
+				//Añadimos el precio.
+				Element precio=documento.createElement("precio");
+				pieza.appendChild(precio);
+				System.out.println("Introduce el precio de la pieza:");
+				Text precioPieza =documento.createTextNode(Float.toString(leer.nextFloat()));leer.nextLine();
+				precio.appendChild(precioPieza);
+				
+				
+				//Añadimos el Stock.
+				Element stock=documento.createElement("stock");
+				pieza.appendChild(precio);
+				System.out.println("Introduce el stock:");
+				Text stockPieza =documento.createTextNode(Integer.toString(leer.nextInt()));leer.nextLine();
+				stock.appendChild(stockPieza);
+		
+				pasarDOMaXML(documento,nombreXML);
+				
+			}else {
+				System.err.println("ERROR: Existe ya el codigo.");
+			}
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+	}
+
+
+	private static boolean existe(Document documento, String codigo) {
+		
+		boolean resultado=false;
+		
+		//Obtenemos el nodo pieza.
+		NodeList piezas=documento.getElementsByTagName("pieza");
+		//Para cada pieza comprobamos si el atributo codigo coincide con el buscado.
+		int contador=0;
+		while(!resultado && contador<piezas.getLength()) {
+			NamedNodeMap atributos=piezas.item(contador).getAttributes();
+			for(int i=0;i<atributos.getLength();i++) {
+				if(atributos.item(i).getNodeName().equals("codigo")) {
+					if(atributos.item(i).getNodeValue().equals(codigo)){
+						resultado=true;
+					}
+				}
+			}
+			contador++;
+		}
+		
+		return resultado;
+	}
+
+	
+
+	private static void modificarFicheroXML() {
+		
+		
+		DocumentBuilder db;
+		try {
+			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document documento=db.parse(nombreXML);
+			
+			//Pedimos el codigo de la pieza la cual vamos a modificar su precio.
+			System.out.println("Introduce el codigo");
+			String codigo=leer.nextLine();
+			
+			//Recuperamos los nodos pieza.
+			NodeList nodosPieza=documento.getElementsByTagName("pieza");
+			for(int i=0;i<nodosPieza.getLength();i++) {
+				//Obtenemos los atributos.
+				NamedNodeMap atributos=nodosPieza.item(i).getAttributes();
+					if(atributos.getNamedItem("codigo").getNodeValue().equalsIgnoreCase(codigo)) {
+						//Pedimos el nuevo precio.
+							System.out.println("Introduce el nuevo precio para el preducto: ");
+							float precio=leer.nextFloat();leer.nextLine();
+							
+							//Recuperamos el nodo precio.
+							Element nodoPrecio=(Element) nodosPieza.item(i).getChildNodes().item(1);
+							nodoPrecio.setTextContent(Float.toString(precio));
+							pasarDOMaXML(documento, nombreXML);
+							break;
+					}
+			}
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	
 	
 	
 	
