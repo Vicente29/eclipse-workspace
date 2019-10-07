@@ -40,4 +40,11 @@
     <fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilder"/>
     <fullyQualifiedTypeName name="org.w3c.dom.NodeList"/>
     <fullyQualifiedTypeName name="org.w3c.dom.Element"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlRootElement"/>
+    <fullyQualifiedTypeName name="ExplicacionJaxB.Pieza"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlElementWrapper"/>
+    <fullyQualifiedTypeName name="com.sun.xml.txw2.annotation.XmlAttribute"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlElement"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlType"/>
 </qualifiedTypeNameHistroy>
