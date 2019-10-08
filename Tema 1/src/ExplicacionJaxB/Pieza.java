@@ -1,9 +1,10 @@
 package ExplicacionJaxB;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.sun.xml.txw2.annotation.XmlAttribute;
+
 
 @XmlType(propOrder = {"nombre","precio","stock"})
 public class Pieza {
@@ -56,13 +57,25 @@ public class Pieza {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	@XmlAttribute
 	public boolean isAlta() {
 		return alta;
 	}
-	@XmlAttribute
+
 	public void setAlta(boolean alta) {
 		this.alta = alta;
 	}
+
+	public void mostrar() {
+		
+		System.out.println("Codigo: "+codigo+
+				"\tNombre: "+nombre+
+				"\tPrecio: "+precio+
+				"\tStock: "+stock+
+				"\tAlta: "+alta);
+		
+	}
+	
 	
 	
 }
