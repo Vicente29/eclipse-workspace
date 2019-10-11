@@ -20,7 +20,6 @@
     <fullyQualifiedTypeName name="java.io.DataOutputStream"/>
     <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilderFactory"/>
     <fullyQualifiedTypeName name="java.awt.event.TextEvent"/>
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
@@ -47,4 +46,11 @@
     <fullyQualifiedTypeName name="com.sun.xml.txw2.annotation.XmlAttribute"/>
     <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlElement"/>
     <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlType"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.lang.Class"/>
+    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="Explicacion_MySql.Modelo"/>
+    <fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 </qualifiedTypeNameHistroy>
