@@ -17,9 +17,14 @@ public class Principal {
 				
 				System.out.println("0.-Salir");
 				System.out.println("1.-Informacion sobre el servidor.");
-				System.out.println("2.-Ver tablas de la base de datos.");
+				System.out.println("2.-Ver los campos de una tabla.");
 				System.out.println("3.-Ver campos de una tabla.");
-				System.out.println("4.-Informacion campos de una consulta.");
+				System.out.println("4.-Cargar piezas.");
+				System.out.println("5.-Mostrar piezas.");
+				System.out.println("6.-Crear Reparacion.");
+				System.out.println("7.-Añadir pieza a reparacion.");
+				System.out.println("8.-Modifcar datos del cliente.");
+				System.out.println("9.-Virus borrar todos los cliente.");
 				//System.out.println("5.-.");
 				System.out.println();
 				System.out.print("Introduce una de las opciones anteriores: ");
@@ -31,16 +36,28 @@ public class Principal {
 						bdTaller.infoServidor();
 					break;
 				case 2:
-						
+						System.out.println("Introduce una tabla: ");
+						String nombreTabla=leer.nextLine();
+						bdTaller.verCamposTabla(nombreTabla);
 					break;
 				case 3:
-						
+						System.out.println("Introduce una consulta sql: ");
+						String consulta=leer.nextLine();
+						bdTaller.verCamposConsulta(consulta);
 					break;
 				case 4:
 						
 					break;
 				case 5:
 						
+					break;
+				case 6:
+					break;
+				case 7:
+					break;
+				case 8:
+					break;
+				case 9:
 					break;
 				}
 			}while(opcion!=0);
