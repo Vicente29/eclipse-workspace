@@ -26,6 +26,9 @@ public class tipoRep {
 	}
 	
 	
-	
+	protected void mostrar() {
+		System.out.println("Codigo: "+codigo+
+				"\tNombre: "+nombre);
+	}
 	
 }

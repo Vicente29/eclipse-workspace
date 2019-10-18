@@ -35,7 +35,12 @@ public class Coche {
 	}
 	
 	
-	
+	protected void mostrar() {
+		System.out.println("Matricula: "+matricula+
+				"\tMarca: "+marca+
+				"\tModelo: "+modelo+
+				"\tCliente: "+cliente.getDni());
+	}
 	
 	
 }
