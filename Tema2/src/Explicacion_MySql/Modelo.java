@@ -280,7 +280,28 @@ public class Modelo {
 
 	protected boolean crearReparacion(Reparacion r) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean resultado=false;
+		
+		try {
+			PreparedStatement sentencia=conexion.prepareStatement("insert into reparacion values (null,?,?,?)");
+			/*Rellenamos los parametros.*/
+			sentencia.setInt(1, r.getTipo().getCodigo());
+			sentencia.setString(2, r.getMatricula().getMatricula());
+			/*Esta fecha nosotros la tenemos importada de java util y en este caso tenemos que 
+			 * usar el java.sql.Date. Para ello usamos la siguiente sentencia: */
+			sentencia.setDate(3, new java.sql.Date(r.getFecha().getTime()));
+			int numReg=sentencia.executeUpdate();
+			
+			if(numReg==1) {
+				resultado=true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resultado;
 	}
 
 	
