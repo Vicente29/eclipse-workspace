@@ -1,5 +1,6 @@
 package Explicacion_MySql;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reparacion {
@@ -39,7 +40,16 @@ public class Reparacion {
 		this.fecha = fecha;
 	}
 	
-	
+	protected void mostrar() {
+		SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+		System.out.println("----------------------------------------------------------");
+		System.out.println("Codigo: "+codigo+"\tFecha"+formatoFecha.format(fecha));
+		tipo.mostrar();
+		System.out.println("Matricula: "+matricula.getMatricula());
+		System.out.println("-----------------------------------------------------------");
+		
+		
+	}
 	
 	
 }

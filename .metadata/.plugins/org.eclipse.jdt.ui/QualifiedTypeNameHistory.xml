@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.io.DataOutputStream"/>
     <fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilderFactory"/>
     <fullyQualifiedTypeName name="java.awt.event.TextEvent"/>
     <fullyQualifiedTypeName name="javax.xml.transform.Source"/>
@@ -43,21 +42,22 @@
     <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlElement"/>
     <fullyQualifiedTypeName name="com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil"/>
     <fullyQualifiedTypeName name="java.sql.ResultSetMetaData"/>
-    <fullyQualifiedTypeName name="Explicacion_MySql.PiezaReparacion"/>
     <fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
     <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
     <fullyQualifiedTypeName name="java.io.FileInputStream"/>
     <fullyQualifiedTypeName name="java.io.EOFException"/>
     <fullyQualifiedTypeName name="Ficheros_de_Objetos.Explicacion"/>
     <fullyQualifiedTypeName name="Ficheros_de_Objetos.Pieza"/>
-    <fullyQualifiedTypeName name="java.sql.Statement"/>
-    <fullyQualifiedTypeName name="Explicacion_MySql.Pieza"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-    <fullyQualifiedTypeName name="Explicacion_MySql.Reparacion"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="Explicacion_MySql.Cliente"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.tipoRep"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.Coche"/>
-    <fullyQualifiedTypeName name="Explicacion_MySql.Cliente"/>
+    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+    <fullyQualifiedTypeName name="Explicacion_MySql.PiezaReparacion"/>
+    <fullyQualifiedTypeName name="Explicacion_MySql.Reparacion"/>
+    <fullyQualifiedTypeName name="Explicacion_MySql.Pieza"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
 </qualifiedTypeNameHistroy>

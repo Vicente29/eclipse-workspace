@@ -2,7 +2,7 @@ package Explicacion_MySql;
 
 public class Coche {
 
-	private String matricula,marca,modelo;
+	private String matricula="",marca="",modelo="";
 	private Cliente cliente;
 	
 	public Coche() {

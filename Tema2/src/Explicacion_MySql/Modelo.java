@@ -278,22 +278,107 @@ public class Modelo {
 		
 	}
 
-	protected boolean crearReparacion(Reparacion r) {
+	protected int crearReparacion(Reparacion r) {
 		// TODO Auto-generated method stub
-		boolean resultado=false;
+		int resultado=-1;
 		
 		try {
-			PreparedStatement sentencia=conexion.prepareStatement("insert into reparacion values (null,?,?,?)");
+			PreparedStatement sentencia=conexion.prepareStatement("insert into reparacion values (null,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			/*Rellenamos los parametros.*/
 			sentencia.setInt(1, r.getTipo().getCodigo());
 			sentencia.setString(2, r.getMatricula().getMatricula());
 			/*Esta fecha nosotros la tenemos importada de java util y en este caso tenemos que 
 			 * usar el java.sql.Date. Para ello usamos la siguiente sentencia: */
 			sentencia.setDate(3, new java.sql.Date(r.getFecha().getTime()));
-			int numReg=sentencia.executeUpdate();
+			sentencia.executeUpdate();
+			ResultSet codigos=sentencia.getGeneratedKeys();
+			/*Como solo hay un registro se puede hacer con un if, si hubiera mas seria un while.*/
+				if(codigos.next()) {
+					resultado=codigos.getInt(1);
+				}
 			
-			if(numReg==1) {
-				resultado=true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+
+	protected void mostrarReparaciones() {
+		// TODO Auto-generated method stub
+		try {
+			Statement sentencia =conexion.createStatement();
+			ResultSet r=sentencia.executeQuery("select * from reparacion r join tiporep t  on r.tipo=t.codigo");
+			while(r.next()) {
+				Reparacion rep=new Reparacion();
+				rep.setCodigo(r.getInt(1));
+				rep.setTipo(new tipoRep());
+				rep.getTipo().setCodigo(r.getInt(2));
+				rep.getTipo().setNombre(r.getString(6));
+				rep.setMatricula(new Coche());
+				rep.getMatricula().setMatricula(r.getString(3));
+		/*Con eso convertimos las fehcas ya sea en java.util o java.sql*/		
+				rep.setFecha(new java.util.Date(r.getDate(4).getTime()));
+				rep.mostrar();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	protected boolean insertarPiezaRep(PiezaReparacion pieza) {
+		// TODO Auto-generated method stub
+		boolean resultado=false;
+		//Comprobamos que existe la reparacion.
+		try {
+			PreparedStatement sentencia=conexion.prepareStatement("select * from reparacion where codigo=?");
+			sentencia.setInt(1, pieza.getReparacion().getCodigo());
+			ResultSet r=sentencia.executeQuery();
+			//Ponemos un if porque solo va haber un codigo con clave primaria.
+			if(r.next()) {
+				//Chequeamos y obtenemos los datos de la pieza.
+				sentencia=conexion.prepareStatement("select * from pieza where codigo=?");
+				sentencia.setInt(1, pieza.getReparacion().getCodigo());
+				r=sentencia.executeQuery();
+				if(r.next()) {
+					//Siguiente chequeo, que haya suficiente cantidad.
+					if(r.getInt(4)>=pieza.getCantidad()) {
+						//Iniciamos transaccion.
+						conexion.setAutoCommit(false);
+						//Insertamos reparacion.
+						sentencia=conexion.prepareStatement("insert into piezareparacion values (?,?,?,?)");
+						sentencia.setInt(1, pieza.getPieza().getCodigo());
+						sentencia.setInt(2, pieza.getReparacion().getCodigo());
+						sentencia.setFloat(3, r.getFloat(3));
+						sentencia.setInt(4, pieza.getCantidad());
+						//Ahora ya podemos hacer el insert.
+						int numReg=sentencia.executeUpdate();
+						if(numReg==1) {
+							//Modificamos el stock de la pieza.
+							sentencia=conexion.prepareStatement("update pieza set stock =(stock-?) where codigo=?");
+							sentencia.setInt(1, pieza.getCantidad());
+							sentencia.setInt(2, pieza.getPieza().getCodigo());
+							numReg=sentencia.executeUpdate();
+							if(numReg==1) {
+								conexion.commit();
+								resultado=true;
+							}else {
+								conexion.rollback();
+							}
+						}else {
+							System.err.println("ERROR: No se puede crear la pieza en la reparacion.");
+						}
+					}else {
+						System.err.println("ERROR: Stock insuficiente");
+					}
+				}else {
+					System.err.println("ERROR: No existe la pieza.");
+				}
+			}else {
+				System.err.println("ERROR: No existe la reparacion.");
 			}
 			
 		} catch (SQLException e) {

@@ -66,11 +66,33 @@ public class Principal {
 					r.getMatricula().setMatricula(leer.nextLine());
 					
 					r.setFecha(new Date());
-					if(!bdTaller.crearReparacion(r)) {
+					int numero=bdTaller.crearReparacion(r);
+					if(numero==-1) {
 						System.err.println("ERROR: No se ha podido crear la reparacion.");
+					}else {
+						System.out.println("Reparacion numero "+numero+" creada.");
 					}
 					break;
 				case 7:
+						System.out.println("Introduce el codigo de reparacion: ");
+						bdTaller.mostrarReparaciones();
+						PiezaReparacion pieza=new PiezaReparacion();
+						pieza.setReparacion(new Reparacion());
+				//Recogemos el codigo de reparacion que introduce el usuario.		
+						pieza.getReparacion().setCodigo(leer.nextInt());leer.nextLine();
+						
+						System.out.println("Introduce el codigo de la pieza: ");
+						bdTaller.mostrarPiezas();
+						pieza.setPieza(new Pieza());
+						pieza.getPieza().setCodigo(leer.nextInt());leer.nextLine();
+						
+						System.out.println("Introduce la cantidad: ");
+						pieza.setCantidad(leer.nextInt());leer.nextLine();
+						
+						if(!bdTaller.insertarPiezaRep(pieza)) {
+							System.out.println("ERROR: No se ha insertado la pieza.");
+						}
+						
 					break;
 				case 8:
 					break;
