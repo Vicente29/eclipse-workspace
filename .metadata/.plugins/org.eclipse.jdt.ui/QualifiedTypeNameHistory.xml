@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilderFactory"/>
-    <fullyQualifiedTypeName name="java.awt.event.TextEvent"/>
     <fullyQualifiedTypeName name="javax.xml.transform.Source"/>
     <fullyQualifiedTypeName name="javax.xml.transform.dom.DOMSource"/>
     <fullyQualifiedTypeName name="javax.xml.transform.Result"/>
@@ -26,8 +24,6 @@
     <fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="Examen.metodos"/>
-    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
-    <fullyQualifiedTypeName name="java.io.FileReader"/>
     <fullyQualifiedTypeName name="java.lang.Float"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
@@ -51,13 +47,17 @@
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.Cliente"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.tipoRep"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.Coche"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.PiezaReparacion"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.Reparacion"/>
     <fullyQualifiedTypeName name="Explicacion_MySql.Pieza"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.io.FileReader"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="com.mysql.cj.jdbc.CallableStatement"/>
+    <fullyQualifiedTypeName name="java.sql.CallableStatement"/>
 </qualifiedTypeNameHistroy>

@@ -1,8 +1,10 @@
 package Explicacion_MySql;
 
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,12 +17,16 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.cj.jdbc.CallableStatement;
+
 
 
 public class Modelo {
 
 	private Connection conexion=null;
-	private String url="jdbc:mysql://localhost:3306/taller?serverTimezone=UTC";
+	//private String url="jdbc:mysql://localhost:3306/taller?serverTimezone=UTC";
+	//String de conexion si queremos ejecutar el script
+	private String url="jdbc:mysql://localhost:3306/taller?serverTimezone=UTC&allowMultiQueries=true";
 	private String usuario="root";
 	private String contraseña="root";
 	
@@ -386,6 +392,61 @@ public class Modelo {
 			e.printStackTrace();
 		}
 		
+		return resultado;
+	}
+
+	protected void ejecutarScript() {
+		// Cargamos en un strring el script que esta en un fichero.
+		BufferedReader fichero=null;
+		try {
+			 fichero=new BufferedReader(new FileReader("scriptUsuario.sql"));
+			String script="";
+			String linea;
+			while((linea=fichero.readLine())!=null) {
+				script+=linea+"\n";
+			}
+			if(script.equals("")) {
+				System.err.println("ERROR: No se ha cargado el Script");
+			}else {
+				Statement sentencia=conexion.createStatement();
+				sentencia.executeUpdate(script);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if(fichero!=null) {
+				try {
+					fichero.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}	
+		
+		
+		
+	}
+
+
+	public boolean login(String us, String clave) {
+		// TODO Auto-generated method stub
+		boolean resultado=false;
+		//La consulta para llamar a una funcion SQL es la siguiente.
+		String consulta="{?=call validarUS(?,?)}";
+		try {
+			java.sql.CallableStatement sentencia=conexion.prepareCall(consulta);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return resultado;
 	}
 
