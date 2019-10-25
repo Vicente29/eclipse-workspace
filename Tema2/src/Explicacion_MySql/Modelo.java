@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -16,8 +17,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.mysql.cj.jdbc.CallableStatement;
 
 
 
@@ -440,9 +439,23 @@ public class Modelo {
 		// TODO Auto-generated method stub
 		boolean resultado=false;
 		//La consulta para llamar a una funcion SQL es la siguiente.
+		//Preparamos un string con la llamada a la funcion.
+		//Al ser una funcion debe empezar por ?
 		String consulta="{?=call validarUS(?,?)}";
 		try {
-			java.sql.CallableStatement sentencia=conexion.prepareCall(consulta);
+			CallableStatement sentencia=conexion.prepareCall(consulta);
+			//Registramos los parametros de entrada.
+			sentencia.setString(2, us);
+			sentencia.setString(3, clave);
+			//Registramos el parametro de salida.
+			sentencia.registerOutParameter(1, java.sql.Types.INTEGER);
+			//Ejecutamos la sentencia.
+			sentencia.executeUpdate();
+			//Recuperamos el valor.
+			if(sentencia.getInt(1)==0) {
+				resultado=true;
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -450,8 +463,56 @@ public class Modelo {
 		return resultado;
 	}
 
-	
-	
-	
+	protected void cerrarConexion() {
+		// TODO Auto-generated method stub
+		try {
+			conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	protected void borrar() {
+		// TODO Auto-generated method stub
+		
+		String consulta= "{call borrarTablas()}";
+		try {
+			CallableStatement sentencia=conexion.prepareCall(consulta);
+			ResultSet r=sentencia.executeQuery();
+			if(r.next()) {
+				System.out.println(r.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	protected boolean modificarCliente(Cliente c) {
+		// TODO Auto-generated method stub
+		boolean resultado=false;
+		
+		try {
+			PreparedStatement sentencia=conexion.prepareStatement("update cliente set nombre=?, telefono=? where dni=?");
+			sentencia.setString(1, c.getNombre());
+			sentencia.setString(2, c.getTelefono());
+			sentencia.setString(3, c.getDni());
+			/*Esta sentencia devuelve un int, si va bien devuelve un 1 sino un 0.*/
+			int r=sentencia.executeUpdate();
+			if(r==1) {
+				resultado=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
 	
 }

@@ -9,20 +9,15 @@ public class Principal {
 	private static Modelo bdTaller= new Modelo();
 	
 	public static void main(String[] args) {
-		
+	
 		if(bdTaller!=null) {
-			
 			System.out.println("Nombre de usuario: ");
 			String us=leer.nextLine();
 			System.out.println("Introduce la clave: ");
 			String clave=leer.nextLine();
-			
 			if(bdTaller.login(us,clave)) {
-				
 				int opcion=0;
-				
 				do {
-					
 					System.out.println("0.-Salir");
 					System.out.println("1.-Informacion sobre el servidor.");
 					System.out.println("2.-Ver los campos de una tabla.");
@@ -40,7 +35,9 @@ public class Principal {
 					opcion=leer.nextInt();leer.nextLine();
 					System.out.println();
 					switch(opcion) {
-					
+					case 0:
+							bdTaller.cerrarConexion();
+						break;
 					case 1:
 							bdTaller.infoServidor();
 						break;
@@ -100,11 +97,21 @@ public class Principal {
 							if(!bdTaller.insertarPiezaRep(pieza)) {
 								System.out.println("ERROR: No se ha insertado la pieza.");
 							}
-							
 						break;
 					case 8:
+							System.out.println("Introduce el nif: ");
+							Cliente c=new Cliente();
+							c.setDni(leer.nextLine());
+							System.out.println("Introduce el nuevo nombre: ");
+							c.setNombre(leer.nextLine());
+							System.out.println("Introduce el nuevo telefono: ");
+							c.setTelefono(leer.nextLine());
+							if(!bdTaller.modificarCliente(c)) {
+								System.err.println("ERROR: No se ha podido hacer la modificacion.");
+							}
 						break;
 					case 9:
+							bdTaller.borrar();
 						break;
 					case 10:
 							bdTaller.estadisticaPieza();
@@ -113,18 +120,12 @@ public class Principal {
 							bdTaller.ejecutarScript();
 						break;
 					}
-				}while(opcion!=0);
-				
-				
+				}while(opcion!=0);	
 			}else {
 				System.err.println("Usuario/Clave no valido.");
-			}
-			
+			}	
 		}else {
 			System.err.println("ERROR: No se ha podido conectar a la base de datos.");
-		}
-
-		
+		}	
 	}
-
 }
