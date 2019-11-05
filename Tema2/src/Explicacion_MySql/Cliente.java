@@ -9,6 +9,14 @@ public class Cliente {
 	protected Cliente() {
 		
 	}
+	
+
+	public Cliente(String dni, String nombre, String telefono) {
+		this.dni = dni;
+		this.nombre = nombre;
+		this.telefono = telefono;
+	}
+
 
 	protected String getDni() {
 		return dni;

@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Principal {
 
 	public static Scanner leer=new Scanner(System.in);
-	
+	public static Modelo gimnasio;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Modelo gimnasio=new Modelo();
+		 gimnasio=new Modelo();
+		
 		if(gimnasio.getConexion()!=null) {
 			//Pedimos usuario y clave.
 			String us,cl;
@@ -19,10 +20,15 @@ public class Principal {
 			cl=leer.nextLine();
 			
 				//Hacemos un login para comprobar el usuario y la contraseña.
-			if(gimnasio.comprobarDatos(us,cl).equals('A')) {
-				
-			}else {
-				System.err.println("ERROR: Usuario o contraseña invalido.");
+			
+				switch(gimnasio.comprobarDatos(us, cl)) {
+				case "A":
+						gimnasio.menuAdmin();
+					break;
+				case "C":
+					gimnasio.menuClientes();
+					break;
+			
 			}
 			
 			

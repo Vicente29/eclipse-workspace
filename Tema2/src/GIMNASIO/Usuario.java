@@ -9,6 +9,9 @@ public class Usuario {
 		this.usuario=ususario;
 		this.tipo=tipo;
 	}
+	public Usuario() {
+		
+	}
 
 	protected String getUsuario() {
 		return usuario;
