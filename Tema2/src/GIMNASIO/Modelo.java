@@ -16,6 +16,7 @@ public class Modelo {
 	private String usuario="gimnasio";
 	private String clave="gimnasio";
 	private static Scanner leer=new Scanner(System.in);
+	private Cliente c;
 	public Modelo() {
 		//Hacemos la conexion. Cargamos el driver.
 		try {
@@ -137,7 +138,7 @@ public class Modelo {
 					mostrarCLientes();
 				break;
 			case 2:
-					Cliente c=new Cliente();
+					 c=new Cliente();
 					System.out.println("Introduce el nombre del USUARIO: ");
 					c.setUsuario(new Usuario());
 					c.getUsuario().setUsuario(leer.nextLine());
@@ -164,15 +165,97 @@ public class Modelo {
 					
 				break;
 			case 3:
-					
+				//Solamente vamos a modificar nombre apellido y telefono.
+					mostrarCLientes();
+					System.out.println("Introduce el id del cliente a modificar: ");
+					c=new Cliente();
+					c.setId(leer.nextInt());leer.nextLine();
+					c=obtenerCliente(c.getId());
+					if(c==null) {
+						System.err.println("ERROR: Cliente no existe.");
+					}else {
+						//Empezariamos a pedir los datos pata modificar.
+						System.out.println("Nuevo nombre: ");
+						c.setNombre(leer.nextLine());
+						System.out.println("Nuevo apellido: ");
+						c.setApellido(leer.nextLine());
+						System.out.println("Nuevo telefono: ");
+						c.setTelf_contacto(leer.nextLine());
+						if(!modificarCliente(c)) {
+							System.err.println("ERROR: No se pudo completar la modificacion.");
+						}
+					}
 				break;
 			case 4:
-					
+					mostrarCLientes();
+					System.out.println("Introduce el id del cliente que desee dar de baja: ");
+					c=new Cliente();
+					c.setId(leer.nextInt());leer.nextLine();
+					c=obtenerCliente(c.getId());
+					if(c==null) {
+						System.err.println("ERROR: No existe cliente.");
+					}else if(c.isBaja()) {
+						System.err.println("El cliente ya esta dado de baja.");
+					}else {
+						bajaCliente(c);
+					}
 				break;
 			}
 		}while(opcion!=0);
 		
 		
+	}
+
+
+	private boolean bajaCliente(Cliente c2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private boolean modificarCliente(Cliente c2) {
+		// TODO Auto-generated method stub
+		boolean resultado =false;
+		try {
+			PreparedStatement sentencia=conexion.prepareStatement("update cliente set nombre=?,apellidos=?,tfno_contacto=? where id=?");
+			sentencia.setString(1, c.getNombre());
+			sentencia.setString(2, c.getApellido());
+			sentencia.setString(3, c.getTelf_contacto());
+			sentencia.setInt(4, c.getId());
+			if(sentencia.executeUpdate()==1) {
+				resultado=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+
+
+	private Cliente obtenerCliente(int id) {
+		// TODO Auto-generated method stub
+		Cliente resultado=null;
+		try {
+			PreparedStatement sentencia=conexion.prepareStatement("select * from cliente where id=?");
+			sentencia.setInt(1, id);
+			ResultSet r=sentencia.executeQuery();
+			//Como solo devuelve una sola fila, se puede hacer con un if, sino se usa un while.
+			if(r.next()) {
+				//Usamos el constructor de la clase Cliente.
+				resultado=new Cliente(r.getInt(1),
+						new Usuario(r.getString(2),null),
+						r.getString(3),
+						r.getString(4),
+						r.getString(5),
+						r.getString(6),
+						r.getBoolean(7));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultado;
 	}
 
 
@@ -189,13 +272,13 @@ public class Modelo {
 			//Como es un insert devuelve el numero de filas por eso usamos el int r.
 			int r=sentencia.executeUpdate();
 			if(r==1) {
-				sentencia=conexion.prepareStatement("insert into cliente values(null,?,?,?,?,?,true)",Statement.RETURN_GENERATED_KEYS);
+				sentencia=conexion.prepareStatement("insert into cliente values(null,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 				sentencia.setString(1, c.getUsuario().getUsuario());
 				sentencia.setString(2, c.getDni());
 				sentencia.setString(3, c.getApellido());
 				sentencia.setString(4, c.getNombre());
 				sentencia.setString(5, c.getTelf_contacto());
-				sentencia.setBoolean(6, true);
+				sentencia.setBoolean(6, false);
 				r=sentencia.executeUpdate();
 				if(r==1) {
 					conexion.commit();
@@ -256,9 +339,6 @@ public class Modelo {
 	}
 
 
-	
-	
-	
 	
 	//FIN DE LOS METODOS DEL ADMINISTRADOR.
 /*---------------------------------------------------------------------------------------------------------*/	

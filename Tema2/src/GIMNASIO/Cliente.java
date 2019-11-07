@@ -86,7 +86,7 @@ public class Cliente {
 		
 		System.out.println("Cliente id: "+id+
 				"\tUsuario: "+usuario.getUsuario()+
-				"\tNombre: "+nombre+ apellido+
+				"\tNombre: "+nombre+" "+apellido+
 				"\tTelefono contacto: "+telf_contacto+
 				"\tBaja: "+baja);
 	}
